@@ -135,7 +135,7 @@ jobs:
         # concern now (its build_rp2() driver builds inside a pinned Docker
         # image) -- only the emulator, which cibuildmp has no reason to know
         # about, stays here.
-        uses: o-murphy/rp2040py@v0.3.5
+        uses: o-murphy/rp2040py@v0.3.6
 
       - name: Install littlefs-python
         if: matrix.port == 'rp2' && !matrix.build_only

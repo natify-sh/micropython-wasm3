@@ -398,7 +398,7 @@ jobs:
           build: ${{ env.MPY_TAG }}-rp2-RPI_PICO
 
       - name: Install the rp2040py emulator
-        uses: o-murphy/rp2040py@v0.3.5
+        uses: o-murphy/rp2040py@v0.3.6
 
       - name: Install littlefs-python
         # The action puts rp2040py in its own isolated uv tool env, so the
