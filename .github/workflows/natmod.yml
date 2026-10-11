@@ -86,7 +86,7 @@ jobs:
       - if: matrix.arch == 'x86'
         run: sudo apt-get update -q && sudo apt-get install -y gcc-multilib
 
-      - uses: ballistics-lab/cibuildmp@v0.7.3
+      - uses: ballistics-lab/cibuildmp@v0.7.5
         with:
           # `build`, not the retired CIBMP_MICROPYTHON/CIBMP_ARCHS env pair
           # (record 0052 dropped both -- there is no more separate
@@ -134,7 +134,7 @@ jobs:
         # inside its own pinned manylinux image rather than on whatever the
         # runner's apt serves that day, and it is the same identifier
         # usermod.yml already builds and runs on ubuntu-latest, i686 included.
-        uses: ballistics-lab/cibuildmp@v0.7.3
+        uses: ballistics-lab/cibuildmp@v0.7.5
         env:
           CIBMP_NO_USER_C_MODULES: "1"
         with:
@@ -390,7 +390,7 @@ jobs:
         # precedence rule). natmod/ci has no config of its own, so the env
         # var is the only thing selecting the stock path, and `build` names
         # the one target. Output lands under natmod/ci/mpyhouse.
-        uses: ballistics-lab/cibuildmp@v0.7.3
+        uses: ballistics-lab/cibuildmp@v0.7.5
         env:
           CIBMP_NO_USER_C_MODULES: "1"
         with:
@@ -398,7 +398,7 @@ jobs:
           build: ${{ env.MPY_TAG }}-rp2-RPI_PICO
 
       - name: Install the rp2040py emulator
-        uses: o-murphy/rp2040py@v0.3.5
+        uses: o-murphy/rp2040py@v0.3.6
 
       - name: Install littlefs-python
         # The action puts rp2040py in its own isolated uv tool env, so the
