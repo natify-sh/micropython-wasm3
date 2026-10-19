@@ -11,7 +11,8 @@
  *
  *   calloc free realloc            m3_core.c:129,134,141
  *   memcpy memset memmove memcmp   m3_core.c, m3_env.c, m3_compile.c
- *   strlen strcmp                  name lookups in m3_env.c / m3_module.c
+ *   strlen strcmp strncmp          name lookups in m3_env.c / m3_module.c,
+ *                                  the "snapshot." prefix test in m3_parse.c
  *   abort                          m3_core.c:19 (m3_Abort)
  *
  * Every printf/snprintf/sprintf/puts site in the wasm3 sources is inside
@@ -103,6 +104,11 @@ size_t strlen(const char *str) {
 int strcmp(const char *l, const char *r) {
     for (; *l == *r && *l; l++, r++);
     return *(const unsigned char *)l - *(const unsigned char *)r;
+}
+
+int strncmp(const char *l, const char *r, size_t n) {
+    for (; n && *l == *r && *l; n--, l++, r++);
+    return n ? *(const unsigned char *)l - *(const unsigned char *)r : 0;
 }
 
 /* ── Termination ──────────────────────────────────────────────────────────
@@ -208,6 +214,19 @@ size_t fread(void *buf, size_t size, size_t n, FILE *f) {
 int fclose(FILE *f) {
     (void)f;
     return 0;
+}
+
+/* m3_host_none.h also swaps a snapshot file into place with remove() and
+ * rename(). Same story as fopen: nothing here reaches them, and answering
+ * "failed" is what its callers already handle. */
+int remove(const char *path) {
+    (void)path;
+    return -1;
+}
+
+int rename(const char *from, const char *to) {
+    (void)from; (void)to;
+    return -1;
 }
 
 __attribute__((noreturn))
