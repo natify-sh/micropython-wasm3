@@ -43,7 +43,7 @@ better answer anyway.
 │   ├── math_shim.c             # libm surface for natmod
 │   └── math_shadow/math.h      # host-build <math.h> interception
 │
-├── wasm3/                      # git submodule -> o-murphy/wasm3
+├── wasm3/                      # git submodule -> wasm3/wasm3
 │
 ├── natmod/                     # Native module (.mpy) build
 │   ├── Makefile                # make ARCH=<x64|armv6m|xtensawin|…> dist
@@ -56,7 +56,7 @@ better answer anyway.
 │   ├── micropython.cmake       # CMake ports (rp2 / esp32 / pico-sdk)
 │   └── manifest.py             # Freezes wasm3.py into the firmware
 │
-├── wasm2mpy/                   # git submodule -> o-murphy/wasm2mpy
+├── wasm2mpy/                   # git submodule -> vshymanskyy/wasm2mpy
 │                               # (only for its test/*.wasm demo blobs)
 │
 ├── tests/
@@ -720,4 +720,4 @@ wrapper.
 
 MIT — see [LICENSE](LICENSE). Wasm3 itself is MIT, Copyright (c) 2019 Steven
 Massey, Volodymyr Shymanskyy; it lives in the `wasm3/` submodule under its
-own LICENSE.
+own LICENSE (see [NOTICE.md](NOTICE.md)).

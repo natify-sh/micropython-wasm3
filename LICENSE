@@ -2,11 +2,6 @@ MIT License
 
 Copyright (c) 2026 o-murphy
 
-This project embeds and builds upon Wasm3
-(https://github.com/wasm3/wasm3), Copyright (c) 2019 Steven Massey,
-Volodymyr Shymanskyy, also distributed under the MIT License. The Wasm3
-sources live in the `wasm3/` submodule and carry their own LICENSE file.
-
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
