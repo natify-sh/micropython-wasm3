@@ -9,6 +9,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Dependencies bumped**: `ballistics-lab/cibuildmp` `v0.7.3` → `v0.7.5` and
+  `o-murphy/rp2040py` `v0.3.5` → `v0.3.6` in `natmod.yml`/`usermod.yml`, and
+  the `wasm3` submodule moves forward (snapshots, atomics). `src/libc_shim.c`
+  gains `strncmp`, `remove` and `rename` stubs, which the new wasm3 snapshot
+  code links against; nothing here reaches `remove`/`rename`, so both answer
+  "failed", as `fopen` already does.
+
+- **natmod `armv6m` builds with `d_m3HasStackSwitching=0`** (`natmod/Makefile`).
+  The new wasm3 enables stack switching by default, and snapshots follow it,
+  adding ~16 KB of text (`wasm3_armv6m.mpy` 148080 → 132340 bytes with the flag) plus a
+  continuation stack buffer. A natmod is loaded into the GC heap, so on the
+  RP2040 the module no longer fit and `test (armv6m / rp2040py)` failed with
+  `RuntimeError: memory allocation failed` in `__init__`. With the flag the
+  suite passes again (20/20 under rp2040py). Stack switching and snapshots are
+  therefore not available in the `armv6m` natmod; other arches are unchanged.
+
 - **MicroPython pin bumped `v1.29.0` → `v1.29.0`**, in `cibuildmp.toml`'s
   `build =` glob, `usermod.yml`/`natmod.yml`'s `MPY_TAG` default and every
   identifier that names the tag literally. Same natmod ABI (`mpy6.3`) and the
