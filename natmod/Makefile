@@ -106,6 +106,15 @@ ifeq ($(ARCH),$(filter $(ARCH),x64 x86))
 CFLAGS_EXTRA += -Dd_m3MaxLinearMemoryPages=1024
 endif
 
+# ── armv6m: drop stack switching (and with it snapshots) ──────────────────────
+# d_m3HasSnapshots follows d_m3HasStackSwitching, and together they add ~16 KB
+# of text plus a d_m3ContinuationStackSlots-sized buffer. A natmod lives in the
+# GC heap, so on a 264 KB RP2040 that pushed wasm3_armv6m.mpy past what the
+# heap could still hand out ("memory allocation failed" in __init__).
+ifeq ($(ARCH),armv6m)
+CFLAGS_EXTRA += -Dd_m3HasStackSwitching=0
+endif
+
 # ── x86: force SSE2 ───────────────────────────────────────────────────────────
 # Two reasons, and the second one is not optional for a wasm runtime.
 #
